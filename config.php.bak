@@ -1,0 +1,9 @@
+<?php
+# pour se connecter à la base de donnée
+const DB_TYPE = "mysql";
+const DB_HOST = "localhost";
+const DB_NAME = "sam_anniv";
+const DB_PWD = "";
+const DB_LOGIN = "root";
+const DB_CHARSET = "utf8";
+const DB_PORT = 3307;
