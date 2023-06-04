@@ -135,24 +135,27 @@
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                
+                <?php
+                // aujourd'hui
+                $today= date("Y-m-d");
+                ?>
+                <h3>Nous sommes le <?=$today?></h3>
+                <hr>
                 <h4>Les anniversaires par date</h4>
                 <table>
                         <tr>
                             <th>Date de  naissance</th>
                             <th>Nom</th>
                             <th>Age</th>
-                            <th>age calcul</th>
                         </tr>
                             <?php
-                $today= date("Y-m-d H:i:s");
+                
                 foreach($recup as $item):
 
                             ?>
                             <tr>
                                 <td><?=$item['date_anniversaire']?></td>
                                 <td><?=$item['nom']?></td>
-                                <td><?=$item['age']?></td>
                                 <td><?=MesDates::AgesEnAnnees($item['date_anniversaire'],$today)?></td>
                             </tr>
                 <?php
