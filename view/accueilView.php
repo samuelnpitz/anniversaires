@@ -156,7 +156,11 @@
                             <tr>
                                 <td><?=$item['date_anniversaire']?></td>
                                 <td><?=$item['nom']?></td>
-                                <td><?=MesDates::AgesEnAnnees($item['date_anniversaire'],$today)?></td>
+                                <td><?php
+                                $ans = (int) model\MesDates::AgesEnAnnees($item['date_anniversaire'],$today);
+                                echo ($ans <= 1) ? $ans.' an': $ans.' ans';
+
+                                ?></td>
                             </tr>
                 <?php
                 endforeach;

@@ -1,5 +1,7 @@
 <?php
 
+namespace model;
+
 class MesDates{
 
     static public function AgesEnAnnees(string $naissance, string $aujourdhui){

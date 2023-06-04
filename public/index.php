@@ -3,8 +3,17 @@
 # Appel du fichier de configuration
 require_once '../config.php';
 
-# on charge nos actions
-require_once '../model/MesDates.php';
+# on active l'autoload
+// Autoload de classes (qui portent le même nom que le fichier) ! Gestion des namespaces
+spl_autoload_register(function ($className) {
+    // par exemple si on est dans le dossier public, le str_replace va remplacer les \ des namespaces par des / et on
+    // aura par exemple ../model/Entity.php
+    $file = '../' . str_replace('\\', '/', $className) . '.php';
+    // si le fichier existe, on le charge
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
 
 # connexion
 try{
@@ -13,11 +22,10 @@ try{
     die($e->getMessage());
 } 
 
-# Chargement des anniversaires
-$request = $connexion->query("SELECT * FROM anniversaires ORDER BY date_anniversaire DESC");
+$anniversairesManager = new model\AnniversairesManager($connexion);
 
-# On transforme les données en tableau associatif lisible par PHP
-$recup = $request->fetchAll(PDO::FETCH_ASSOC);
+$recup = $anniversairesManager->getAllAnniversaires();
+
 
 # Appel de la vue
 require_once '../view/accueilView.php';
