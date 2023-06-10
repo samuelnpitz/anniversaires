@@ -26,6 +26,13 @@ $anniversairesManager = new model\AnniversairesManager($connexion);
 
 $recup = $anniversairesManager->getAllAnniversaires();
 
+if(isset($_GET['connect'])){
 
-# Appel de la vue
-require_once '../view/accueilView.php';
+    # Appel de la vue
+    require_once '../view/loginView.php';
+
+}else{
+
+    # Appel de la vue
+    require_once '../view/accueilView.php';
+}
