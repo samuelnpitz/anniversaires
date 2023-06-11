@@ -168,6 +168,7 @@
                         <th>Date de naissance</th>
                         <th>Nom</th>
                         <th>Age</th>
+                        <th>Anniversaire dans</th>
                     </tr>
                     <?php
 
@@ -180,6 +181,24 @@
                             <td><?php
                                 $ans = (int) model\MesDates::AgesEnAnnees($item['date_anniversaire'], $today);
                                 echo ($ans <= 1) ? $ans . ' an' : $ans . ' ans';
+
+                                ?></td>
+                            <td><?php
+                                $dateAnniv = substr($item['date_anniversaire'], 5);
+                                $dateToday = substr($today, 5);
+                                if($dateAnniv < $dateToday){
+                                        $avenir = date("Y")+1 . '-' . $dateAnniv;
+                                    }else{
+                                        $avenir = date("Y") . '-' . $dateAnniv;
+                                }
+                                $jours = (int) model\MesDates::EnJours($today, $avenir);
+                                if($jours == 0) {
+                                    echo '<strong>Aujourd\'hui !</strong>';
+                                }elseif($jours < 31){
+                                    echo "<strong>Dans $jours jours !</strong>";
+                                }else{
+                                    echo ($jours>1)? "$jours jours" : "$jours jour";
+                                }
 
                                 ?></td>
                         </tr>
