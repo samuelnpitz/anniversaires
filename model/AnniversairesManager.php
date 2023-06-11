@@ -19,4 +19,18 @@ class AnniversairesManager{
         # On transforme les données en tableau associatif lisible par PHP
         return $recup = $request->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function addAnniversaire(array $tab){
+        # Ajout d'un anniversaire
+        $prepare = $this->connexion->prepare("INSERT INTO anniversaires (nom, date_anniversaire) VALUES (:nom, :date_anniversaire)");
+        $prepare->bindValue(':nom', $tab['nom'], PDO::PARAM_STR);
+        $prepare->bindValue(':date_anniversaire', $tab['date_anniversaire'], PDO::PARAM_STR);
+
+        try {
+            $prepare->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

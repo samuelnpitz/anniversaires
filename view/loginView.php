@@ -41,7 +41,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top">Anniversaires de Samuel</a>
+            <a class="navbar-brand" href="./">Anniversaires de Samuel</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
@@ -94,6 +94,9 @@
                     <!-- to get an API token!-->
                     <form id="contactForm" name="connect" method="post">
                         <!-- Name input-->
+                        <?php
+                        if(isset($erreur)) echo "<h2>$erreur</h2>";
+                        ?>
                         <div class="form-floating mb-3">
                             <input class="form-control" id="name" name="username" type="text" placeholder="Entre ton nom" data-sb-validations="required" />
                             <label for="name">ton nom</label>

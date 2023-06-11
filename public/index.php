@@ -1,4 +1,6 @@
 <?php
+# session_start();
+session_start();
 
 # Appel du fichier de configuration
 require_once '../config.php';
@@ -23,11 +25,39 @@ try{
 } 
 
 $anniversairesManager = new model\AnniversairesManager($connexion);
+$utilisateurManager = new model\UtilisateurManager($connexion);
 
 $recup = $anniversairesManager->getAllAnniversaires();
 
-if(isset($_GET['connect'])){
+if(isset($_SESSION['idsession']) && $_SESSION['idsession'] == session_id()){
 
+    if(isset($_GET['disconnect'])){
+        session_destroy();
+        header('Location: ./');
+        exit();
+    }
+
+    if(isset($_POST['nom'], $_POST['date_anniversaire'])){
+        if($anniversairesManager->addAnniversaire($_POST)){
+            header('Location: ./');
+            exit();
+        }else{
+            $erreur = "Erreur d'ajout";
+        }
+    }
+
+    require_once "../view/addView.php";
+
+}elseif(isset($_GET['connect'])){
+
+    if(isset($_POST['username'], $_POST['userpwd'])){
+        if($utilisateurManager->connect($_POST)){
+            header('Location: ./');
+            exit();
+        }else{
+            $erreur = "Erreur d'authentification";
+        }
+    }
     # Appel de la vue
     require_once '../view/loginView.php';
 

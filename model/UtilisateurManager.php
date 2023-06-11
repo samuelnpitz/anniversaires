@@ -14,10 +14,23 @@ class UtilisateurManager{
     public function connect(array $tab){
         
         # Chargement des anniversaires
-        $request = $this->connexion->query("SELECT * FROM anniversaires ORDER BY date_anniversaire DESC");
+        $prepare = $this->connexion->prepare("SELECT * FROM utilisateur WHERE username = :username AND userpwd = :userpwd");
+        $prepare->bindValue(':username', $tab['username'], PDO::PARAM_STR);
+        $prepare->bindValue(':userpwd', $tab['userpwd'], PDO::PARAM_STR);
 
-        # On transforme les données en tableau associatif lisible par PHP
-        return $recup = $request->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $prepare->execute();
+            if($prepare->rowCount() == 0){
+                return false;
+            }
+            $_SESSION['idsession'] = session_id();
+            $_SESSION['username'] = $tab['username'];
+            $_SESSION['usersurname'] = $tab['usersurname'];
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+
     }
 
 }
